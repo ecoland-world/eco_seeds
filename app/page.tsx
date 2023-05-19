@@ -6,14 +6,17 @@ import { buttonVariants } from "@/components/ui/button"
 export default function IndexPage() {
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
-      <div className="flex max-w-[980px] flex-row items-start gap-2">
+      <div className="flex max-w-6xl flex-row items-start gap-2">
         <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
-          Beautifully designed components <br className="hidden sm:inline" />
-          built with Radix UI and Tailwind CSS.
+          Unlock the Power of ReFi
+          <br className="hidden sm:inline" />
+          Invest in a Future That Thrives
         </h1>
         <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
-          Accessible and customizable components that you can copy and paste
-          into your apps. Free. Open Source. And Next.js 13 Ready.
+          Welcome to EcoSeeds, ReFi Launchpad, where we empower you to reshape
+          finance for a better future. Our mission is to inspire and guide
+          individuals and businesses on the path of regenerative finance,
+          unlocking the potential for positive change
         </p>
       </div>
       <div className="flex gap-4">
