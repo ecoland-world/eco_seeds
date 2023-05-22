@@ -1,5 +1,6 @@
-import Link from "next/link"
-import { Wallet } from "lucide-react"
+"use client"
+
+import { ConnectButton } from "@rainbow-me/rainbowkit"
 
 import { siteConfig } from "@/config/site"
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -14,40 +15,11 @@ export function SiteHeader() {
         <MainNav items={siteConfig.mainNav} />
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-1">
-            {/* <Link
-              href={siteConfig.links.github}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div
-                className={buttonVariants({
-                  size: "sm",
-                  variant: "ghost",
-                })}
-              >
-                <Icons.gitHub className="h-5 w-5" />
-                <span className="sr-only">GitHub</span>
-              </div>
-            </Link>
-            <Link
-              href={siteConfig.links.twitter}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div
-                className={buttonVariants({
-                  size: "sm",
-                  variant: "ghost",
-                })}
-              >
-                <Icons.twitter className="h-5 w-5 fill-current" />
-                <span className="sr-only">Twitter</span>
-              </div>
-            </Link> */}
-            <Button>
+            {/* <Button>
               <Wallet className="mr-2 h-4 w-4" />
               Connect
-            </Button>
+            </Button> */}
+            <ConnectButton />
             <ThemeToggle />
           </nav>
         </div>

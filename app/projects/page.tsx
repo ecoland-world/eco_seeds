@@ -118,7 +118,7 @@ const ProjectsPage = () => {
           <CardContent className="grid gap-4">
             <div>
               <div className="mb-4 grid grid-cols-[25px_1fr] items-start gap-2 pb-4 last:mb-0 last:pb-0">
-                <Leaf className="flex translate-y-1 text-accent" />
+                <Leaf className="flex translate-y-1 text-[#23e7c3]" />
                 <div className="space-y-1">
                   <p className="text-sm font-medium leading-none">Round Name</p>
                   <p className="text-sm text-muted-foreground">
@@ -127,7 +127,7 @@ const ProjectsPage = () => {
                 </div>
               </div>
               <div className="mb-4 grid grid-cols-[25px_1fr] items-start gap-2 pb-4 last:mb-0 last:pb-0">
-                <Users className="flex translate-y-1 text-accent" />
+                <Users className="flex translate-y-1 text-[#23e7c3]" />
                 <div className="space-y-1">
                   <p className="text-sm font-medium leading-none">
                     Participants
@@ -138,7 +138,7 @@ const ProjectsPage = () => {
                 </div>
               </div>
               <div className="mb-4 grid grid-cols-[25px_1fr] items-start gap-2 pb-4 last:mb-0 last:pb-0">
-                <Clock className="flex translate-y-1 text-accent" />
+                <Clock className="flex translate-y-1 text-[#23e7c3]" />
                 <div className="space-y-1">
                   <p className="text-sm font-medium leading-none">Sale End</p>
                   <p className="text-sm text-muted-foreground">
@@ -154,7 +154,7 @@ const ProjectsPage = () => {
                 </div>
               </div>
               <div className="mb-4 grid grid-cols-[25px_1fr] items-start gap-2 pb-4 last:mb-0 last:pb-0">
-                <DollarSign className="flex translate-y-1 text-accent" />
+                <DollarSign className="flex translate-y-1 text-[#23e7c3]" />
                 <div className="space-y-1">
                   <p className="text-sm font-medium leading-none">
                     Raised Amount
