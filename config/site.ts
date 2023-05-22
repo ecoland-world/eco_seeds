@@ -12,6 +12,14 @@ export const siteConfig = {
       title: "Projects",
       href: "/projects",
     },
+    {
+      title: "How it works?",
+      href: "/how",
+    },
+    {
+      title: "Apply",
+      href: "/apply",
+    },
   ],
   links: {
     twitter: "https://twitter.com/ecolandworld",

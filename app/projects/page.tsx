@@ -1,8 +1,9 @@
 import Image from "next/image"
+import Link from "next/link"
 import { Clock, DollarSign, Info, Leaf, Users } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -169,9 +170,15 @@ const ProjectsPage = () => {
             <Progress value={33} />
           </CardContent>
           <CardFooter>
-            <Button className="w-full">
+            <Link
+              className={buttonVariants({
+                variant: "default",
+                className: "w-full",
+              })}
+              href={`/projects/${project.id}`}
+            >
               <Info className="mr-2 h-4 w-4" /> View Details
-            </Button>
+            </Link>
           </CardFooter>
         </Card>
       ))}
