@@ -1,22 +1,11 @@
-# next-template
+# EcoSeeds
 
-A Next.js 13 template for building apps with Radix UI and Tailwind CSS.
-
-## Usage
-
-```bash
-npx create-next-app -e https://github.com/shadcn/next-template
-```
+The launchpad for Refi projects.
+Invest in pre-seed and seed ecological initiatives through NCTs.
 
 ## Features
 
-- Radix UI Primitives
-- Tailwind CSS
-- Fonts with `next/font`
-- Icons from [Lucide](https://lucide.dev)
-- Dark mode with `next-themes`
-- Automatic import sorting with `@ianvs/prettier-plugin-sort-imports`
-- Tailwind CSS class sorting, merging and linting.
+- Loading...
 
 ## License
 
