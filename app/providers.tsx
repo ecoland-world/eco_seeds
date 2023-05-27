@@ -12,7 +12,15 @@ import {
   trustWallet,
 } from "@rainbow-me/rainbowkit/wallets"
 import { WagmiConfig, configureChains, createConfig } from "wagmi"
-import { arbitrum, goerli, mainnet, optimism, polygon } from "wagmi/chains"
+import {
+  arbitrum,
+  celo,
+  celoAlfajores,
+  goerli,
+  mainnet,
+  optimism,
+  polygon,
+} from "wagmi/chains"
 import { publicProvider } from "wagmi/providers/public"
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
@@ -21,7 +29,10 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
     polygon,
     optimism,
     arbitrum,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [goerli] : []),
+    celo,
+    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true"
+      ? [goerli, celoAlfajores]
+      : []),
   ],
   [publicProvider()]
 )
