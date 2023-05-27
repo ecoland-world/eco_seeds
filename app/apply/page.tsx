@@ -1,6 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import axios from "axios"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
@@ -69,9 +70,10 @@ const ApplyPage = () => {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+
     console.log(values)
   }
 
@@ -81,10 +83,9 @@ const ApplyPage = () => {
         Apply to be listed
       </h1>
       <p className="w-[700px] text-center">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti neque
-        tempore consequuntur error corporis laudantium, et vel nesciunt sapiente
-        vitae voluptatibus nihil eligendi, eius nobis laboriosam voluptas quas
-        aut. Quis!
+        Ecoseeds provides a platform that utilizes custom tokens, lock periods,
+        and proof of work to facilitate crowd-funding for ecological projects.
+        Apply below and we will chat soon!
       </p>
       <Form {...form}>
         <form
