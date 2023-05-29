@@ -177,7 +177,7 @@ const ProjectDetailsPage = () => {
           </CardHeader>
           <Separator />
           <CardHeader>
-            <CardTitle>Whitepapaer:</CardTitle>
+            <CardTitle>Whitepaper:</CardTitle>
             <div className="flex flex-row items-center space-x-1">
               <Paperclip className="h-4 w-4" />
               <Link href={"https:/example.com"} className="hover:underline">
