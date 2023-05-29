@@ -1,10 +1,12 @@
 // allows to render server side props on client side
 "use client"
 
-import React from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import icon from "@/public/1.png"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as DialogPrimitive from "@radix-ui/react-dialog"
 import {
   Coins,
   DollarSign,
@@ -12,10 +14,14 @@ import {
   Globe,
   Linkedin,
   Paperclip,
+  PieChart,
   Send,
   Twitter,
 } from "lucide-react"
+import ReactCanvasConfetti from "react-canvas-confetti"
+import { useForm } from "react-hook-form"
 import { useAccount } from "wagmi"
+import * as z from "zod"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -27,13 +33,104 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
+import { useToast } from "@/components/ui/use-toast"
 import TransactionInterface from "@/components/transactions/example"
 
+const FormSchema = z.object({
+  amount: z.coerce.number(),
+})
+
 const ProjectDetailsPage = () => {
+  const refAnimationInstance = useRef(null)
+
+  const getInstance = useCallback((instance: any) => {
+    refAnimationInstance.current = instance
+  }, [])
+
+  const makeShot = useCallback((particleRatio: number, opts: any) => {
+    refAnimationInstance.current &&
+      refAnimationInstance.current({
+        ...opts,
+        origin: { y: 0.7 },
+        particleCount: Math.floor(200 * particleRatio),
+      })
+  }, [])
+
+  const fire = useCallback(() => {
+    makeShot(0.25, {
+      spread: 26,
+      startVelocity: 55,
+    })
+
+    makeShot(0.2, {
+      spread: 60,
+    })
+
+    makeShot(0.35, {
+      spread: 100,
+      decay: 0.91,
+      scalar: 0.8,
+    })
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 25,
+      decay: 0.92,
+      scalar: 1.2,
+    })
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 45,
+    })
+  }, [makeShot])
+
+  const [reward, setReward] = useState(0)
   const { isConnected } = useAccount()
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  })
+
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    fire()
+    console.log(data)
+  }
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
+      <ReactCanvasConfetti
+        refConfetti={getInstance}
+        style={{
+          position: "fixed",
+          pointerEvents: "none",
+          width: "100%",
+          height: "100%",
+          top: 0,
+          left: 0,
+          zIndex: 999,
+        }}
+      />
       <div>
         <Card className="flex">
           <CardContent className={cn("flex w-1/2 flex-col space-y-10 p-6")}>
@@ -51,13 +148,65 @@ const ProjectDetailsPage = () => {
                   impedit repellat eos atque libero tenetur nihil neque
                   voluptates consectetur facere exercitationem architecto!
                 </CardDescription>
+                <CardDescription className="text-md">
+                  Total Invested: <strong>123</strong>
+                </CardDescription>
+                <CardDescription className="text-md">
+                  Expected Reward: <strong>123</strong>
+                </CardDescription>
+                <CardDescription className="text-md">
+                  Release Date: <strong>01/06/2023, 18:34</strong>
+                </CardDescription>
               </div>
             </div>
 
             <div className="flex w-1/2 space-x-2">
-              <Button className="w-full bg-[#23e7c3]">Claim</Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button className="w-full bg-[#23e7c3]">Invest</Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Invest in Project</DialogTitle>
+                    <DialogDescription>
+                      Please confirm how much you want to invest to the project
+                    </DialogDescription>
+                  </DialogHeader>
+                  <Form {...form}>
+                    <form
+                      onSubmit={form.handleSubmit(onSubmit)}
+                      className="grid gap-4 py-4"
+                    >
+                      <FormField
+                        control={form.control}
+                        name="amount"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Amount</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="0.5"
+                                {...field}
+                                type="number"
+                              />
+                            </FormControl>
+                            <FormDescription>
+                              {/* Update state of expected reward */}
+                              Estimated Reward: <strong>{reward}</strong>
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <DialogFooter>
+                        <Button type="submit">Confirm</Button>
+                      </DialogFooter>
+                    </form>
+                  </Form>
+                </DialogContent>
+              </Dialog>
               <Button className="w-full border-[#23e7c3]" variant={"outline"}>
-                Stake
+                Claim
               </Button>
             </div>
           </CardContent>
@@ -116,11 +265,11 @@ const ProjectDetailsPage = () => {
           <CardHeader>
             <div className="flex flex-row items-center space-x-1">
               <div className="rounded-md bg-[#23e7c3] p-2">
-                <DollarSign />
+                <PieChart />
               </div>
               <div className="flex w-full flex-row items-center justify-between">
-                <CardTitle>Token Price:</CardTitle>
-                <h3>0.25 USD</h3>
+                <CardTitle>Pool % Owned:</CardTitle>
+                <h3>0.1% / 100 Bzon</h3>
               </div>
             </div>
           </CardHeader>
