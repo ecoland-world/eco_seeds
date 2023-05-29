@@ -1,7 +1,9 @@
 "use client"
 
+import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import axios from "axios"
+import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
@@ -25,7 +27,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-
 
 const formSchema = z.object({
   fullName: z.string({ required_error: "Name is required" }),
@@ -71,34 +72,16 @@ const ApplyPage = () => {
     },
   })
 
-  // create function to submit form data to api with a post request to the /api/apply endpoint
-// const submitForm = async (data) => {
-//   try {
-//     const res = await axios.post("/api/apply", data);
-//     console.log(res);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-const submitForm = async (data: any) => {
-  try {
-    const res = await axios.post("/api/apply", data);
-    console.log(res);
-  } catch (err) {
-    console.log(err);
-  }
-};
+  const { isSubmitting } = form.formState
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-
-    console.log(values)
     try {
-      const res = await axios.post("/api/apply", values);
-      console.log(res);
+      const res = await axios.post("/api/apply", values)
+      if (res.status === 200) {
+      }
+      console.log(res)
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
   }
 
@@ -374,7 +357,13 @@ const submitForm = async (data: any) => {
               )}
             />
           </div>
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              "Apply"
+            )}
+          </Button>
         </form>
       </Form>
     </div>
