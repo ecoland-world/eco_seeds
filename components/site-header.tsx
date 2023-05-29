@@ -83,8 +83,8 @@ export function SiteHeader() {
                               <div
                                 style={{
                                   background: chain.iconBackground,
-                                  width: 12,
-                                  height: 12,
+                                  width: 24,
+                                  height: 24,
                                   borderRadius: 999,
                                   overflow: "hidden",
                                   marginRight: 4,
@@ -94,8 +94,8 @@ export function SiteHeader() {
                                   <Image
                                     alt={chain.name ?? "Chain icon"}
                                     src={chain.iconUrl}
-                                    width={14}
-                                    height={14}
+                                    width={24}
+                                    height={24}
                                   />
                                 )}
                               </div>
