@@ -374,7 +374,7 @@ const submitForm = async (data: any) => {
               )}
             />
           </div>
-          <Button type="submit" >Submit</Button>
+          <Button type="submit">Submit</Button>
         </form>
       </Form>
     </div>
