@@ -1,3 +1,6 @@
+// allows to render server side props on client side
+'use client';
+
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -24,8 +27,11 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { useAccount } from "wagmi";
+import TransactionInterface from "@/components/transactions/example"
 
 const ProjectDetailsPage = () => {
+  const { isConnected } = useAccount();
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <div>
@@ -73,6 +79,13 @@ const ProjectDetailsPage = () => {
                 <h1 className="font-bold text-[#23e7c3]">Initial Market Cap</h1>
                 <p className="font-bold">6.48M USD</p>
               </div>
+              <div className="space-y-1 rounded-md bg-background p-4">
+                <h1 className="font-bold text-[#23e7c3]">New Sale Button</h1>
+       
+                {isConnected && <TransactionInterface/>}
+            
+              </div>
+
             </div>
           </CardContent>
         </Card>
