@@ -115,7 +115,7 @@ export function SiteHeader() {
               }}
             </ConnectButton.Custom>
 
-            {/* <ThemeToggle /> */}
+            <ThemeToggle />
           </nav>
         </div>
       </div>

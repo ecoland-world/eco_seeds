@@ -53,12 +53,20 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { useToast } from "@/components/ui/use-toast"
 import TransactionInterface from "@/components/transactions/example"
 
 const FormSchema = z.object({
-  amount: z.coerce.number(),
+  amount: z.coerce.number({ required_error: "Enter an amount" }),
+  chain: z.string({ required_error: "Select a chain" }),
 })
 
 const ProjectDetailsPage = () => {
@@ -114,6 +122,7 @@ const ProjectDetailsPage = () => {
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    form.reset()
     fire()
     console.log(data)
   }
@@ -190,6 +199,30 @@ const ProjectDetailsPage = () => {
                                 type="number"
                               />
                             </FormControl>
+
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="chain"
+                        render={({ field }) => (
+                          <FormItem>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue="CELO"
+                            >
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select Chain" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="CELO">CELO</SelectItem>
+                                <SelectItem value="Polygon">NCT</SelectItem>
+                              </SelectContent>
+                            </Select>
                             <FormDescription>
                               {/* Update state of expected reward */}
                               Estimated Reward: <strong>{reward}</strong>
@@ -211,7 +244,7 @@ const ProjectDetailsPage = () => {
             </div>
           </CardContent>
           <CardContent className={cn("w-1/2 p-6")}>
-            <div className="grid grid-cols-2 gap-6 rounded-md bg-[#B3C6AD] p-6">
+            <div className="grid grid-cols-2 gap-6 rounded-md bg-[#B3C6AD] p-6 dark:bg-green-900">
               <div className="space-y-1 rounded-md bg-background p-4">
                 <h1 className="font-bold text-[#23e7c3]">Total Supply</h1>
                 <p className="font-bold">1,000,000,000 Bzon</p>

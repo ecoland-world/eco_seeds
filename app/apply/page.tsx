@@ -137,7 +137,10 @@ const ApplyPage = () => {
   return (
     <div className="container flex flex-col items-center justify-center space-y-8 py-8">
       <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
-        Apply to be listed
+        Apply for{" "}
+        <span className="bg-gradient-to-r from-[#23e761] to-[#23e7c3] bg-clip-text text-transparent">
+          EcoSeeds
+        </span>
       </h1>
       <ReactCanvasConfetti
         refConfetti={getInstance}
@@ -275,7 +278,10 @@ const ApplyPage = () => {
                   name="chain"
                   render={({ field }) => (
                     <FormItem>
-                      <Select onValueChange={field.onChange}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select Chain" />

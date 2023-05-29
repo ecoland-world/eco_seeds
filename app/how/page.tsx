@@ -88,7 +88,10 @@ const HowtoPage = () => {
   return (
     <section className="container flex flex-col items-center space-y-4 py-8 ">
       <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
-        How it works?
+        <span className="bg-gradient-to-r from-[#23e761] to-[#23e7c3] bg-clip-text text-transparent">
+          How
+        </span>{" "}
+        it works?
       </h1>
       <p className="w-[700px] text-center">
         Ecoseeds is a financial platform that aims to promote Regenerative

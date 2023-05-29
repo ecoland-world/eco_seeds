@@ -229,7 +229,7 @@ export default function IndexPage() {
             </Card>
           ))}
         </div>
-        <Card className="mt-24 flex flex-col items-center justify-center space-y-3 border-none bg-white py-10">
+        <Card className="mt-24 flex flex-col items-center justify-center space-y-3 bg-card py-10">
           <h4 className="scroll-m-20 text-xl font-semibold tracking-tight text-[#23e761]">
             Have a project?
           </h4>
