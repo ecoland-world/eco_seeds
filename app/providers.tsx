@@ -21,17 +21,17 @@ import {
   optimism,
   polygon,
 } from "wagmi/chains"
+import { Valora, CeloWallet } from "@celo/rainbowkit-celo/wallets";
+import { Alfajores, Celo } from "@celo/rainbowkit-celo/chains";
 import { publicProvider } from "wagmi/providers/public"
+
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
     mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    celo,
+    Celo,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true"
-      ? [goerli, celoAlfajores]
+      ? [goerli, Alfajores]
       : []),
   ],
   [publicProvider()]
@@ -40,13 +40,13 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 const projectId = "03f06b7a09157f638094c971965cd79d"
 
 const { wallets } = getDefaultWallets({
-  appName: "RainbowKit demo",
+  appName: "EcoSeeds",
   projectId,
   chains,
 })
 
 const demoAppInfo = {
-  appName: "Rainbowkit Demo",
+  appName: "EcoSeeds",
 }
 
 const connectors = connectorsForWallets([
@@ -57,6 +57,8 @@ const connectors = connectorsForWallets([
       argentWallet({ projectId, chains }),
       trustWallet({ projectId, chains }),
       ledgerWallet({ projectId, chains }),
+      Valora({ projectId, chains }),
+      CeloWallet({ projectId, chains }),
     ],
   },
 ])

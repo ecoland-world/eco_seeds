@@ -208,6 +208,13 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
+"@celo/rainbowkit-celo@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@celo/rainbowkit-celo/-/rainbowkit-celo-1.0.0.tgz#b8f1a5e5325295c6f4b3ad00fe6e94fab98142aa"
+  integrity sha512-DTi48TUEdnJF9Za2wrKhuMuO3sGwf3OHooK+5dryqy8zRbJQXkf2f5VOM1qlKqKbRiwBQQxdxDOh/VE44+eO3g==
+  dependencies:
+    "@wagmi/chains" "^0.2.22"
+
 "@coinbase/wallet-sdk@^3.6.6":
   version "3.6.6"
   resolved "https://registry.yarnpkg.com/@coinbase/wallet-sdk/-/wallet-sdk-3.6.6.tgz#4a0758fe0fe0ba3ed7e33b5bb6eb094ff8bd6c98"
@@ -1897,6 +1904,11 @@
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@wagmi/chains/-/chains-0.3.1.tgz#5d8e8ef1bcd8637c9f3ead8626595b12a01c35e4"
   integrity sha512-NN5qziBLFeXnx0+3ywdiKKXUSW4H73Wc1jRrygl9GKXVPawU0GBMudwXUfV7VOu6E9vmG7Arj0pVsEwq63b2Ew==
+
+"@wagmi/chains@^0.2.22":
+  version "0.2.25"
+  resolved "https://registry.yarnpkg.com/@wagmi/chains/-/chains-0.2.25.tgz#44614a07399bcebb6651899d8116475e4a87e875"
+  integrity sha512-Gah0bgR+14navwxi7xTL2oFB8YgK4qoBPye1b8ucccIwF3Z8Zg1u2gVTDFAyPT4lyB+ZVqwYKs3Y/IkFNG5O4Q==
 
 "@wagmi/connectors@2.0.0":
   version "2.0.0"
