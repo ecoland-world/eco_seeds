@@ -58,6 +58,7 @@ const ApplyPage = () => {
 
   const makeShot = useCallback((particleRatio: number, opts: any) => {
     refAnimationInstance.current &&
+      // @ts-ignore
       refAnimationInstance.current({
         ...opts,
         origin: { y: 0.7 },
