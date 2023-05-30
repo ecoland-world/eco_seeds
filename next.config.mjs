@@ -17,6 +17,14 @@ const nextConfig = {
       },
     ],
   },
+  rewrites: async () => {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://eco-seeds.vercel.app/api/:path*',
+      },
+    ];
+  }
 }
 
 export default nextConfig
