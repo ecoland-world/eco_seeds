@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { MongoClient, ServerApiVersion } from "mongodb"
 
+const { MongoClient, ServerApiVersion } = require("mongodb")
 require("dotenv").config()
 
-const uri = process.env.MONGODB_URI!
+const uri = process.env.NEXT_PUBLIC_MONGODB_URI
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -38,7 +38,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  console.log(req.method)
   const body: ProjectData = req.body
 
   //run().catch(console.dir);
