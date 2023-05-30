@@ -279,10 +279,7 @@ const ApplyPage = () => {
                   name="chain"
                   render={({ field }) => (
                     <FormItem>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
+                      <Select onValueChange={field.onChange}>
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select Chain" />

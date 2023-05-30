@@ -1,6 +1,7 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-const { MongoClient, ServerApiVersion } = require('mongodb');
-require ('dotenv').config()
+import { NextApiRequest, NextApiResponse } from "next"
+
+const { MongoClient, ServerApiVersion } = require("mongodb")
+require("dotenv").config()
 
 const uri = process.env.MONGODB_URI
 
@@ -10,54 +11,51 @@ const client = new MongoClient(uri, {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
-  }
-});
-
+  },
+})
 
 interface ProjectData {
-  fullName: string;
-  email: string;
-  title: string;
-  telegramUser: string;
-  projectName: string;
-  projectDescription: string;
-  tokenInfo: string;
-  targetRaise: string;
-  chain: string;
-  projectStatus: string;
-  raisedBefore: string;
-  projectType: string;
-  websiteUrl: string;
-  whitepaperUrl: string | null;
-  projectTwitter: string | null;
-  projectTelegram: string | null;
-  projectGithub: string | null;
+  fullName: string
+  email: string
+  title: string
+  telegramUser: string
+  projectName: string
+  projectDescription: string
+  tokenInfo: string
+  targetRaise: string
+  chain: string
+  projectStatus: string
+  raisedBefore: string
+  projectType: string
+  websiteUrl: string
+  whitepaperUrl: string | null
+  projectTwitter: string | null
+  projectTelegram: string | null
+  projectGithub: string | null
 }
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
+  console.log(req.method)
   const body: ProjectData = req.body
 
   //run().catch(console.dir);
   // we will use params to access the data passed to the dynamic route
-  if (req.method === 'POST')  {
+  if (req.method === "POST") {
     // insert into db
     try {
-      await client.connect();
-      const database = client.db('ecoseeds');
-      const collection = database.collection('applications');
-      const result = await collection.insertOne(body);
-      res.status(200).json({ success: true, data: result });
-    }
-    catch (err) {
+      await client.connect()
+      const database = client.db("ecoseeds")
+      const collection = database.collection("applications")
+      const result = await collection.insertOne(body)
+      res.status(200).json({ success: true, data: result })
+    } catch (err) {
       console.log(1)
-      res.status(400).json({ success: false });
-    }
-    finally {
-      await client.close();
+      res.status(400).json({ success: false })
+    } finally {
+      await client.close()
     }
   }
-  
 }
