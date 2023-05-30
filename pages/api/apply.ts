@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 
 const { MongoClient, ServerApiVersion } = require("mongodb")
-// require("dotenv").config()
+require("dotenv").config()
 
 const uri = process.env.MONGODB_URI
 
