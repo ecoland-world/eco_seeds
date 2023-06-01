@@ -29,6 +29,7 @@ type OngoingProjects = {
   }
   saleStartDate: Date
   saleEndDate: Date
+  nct: boolean
 }
 
 const ongoingProjects: OngoingProjects[] = [
@@ -47,6 +48,7 @@ const ongoingProjects: OngoingProjects[] = [
     },
     saleStartDate: new Date("2023-06-01T21:34"),
     saleEndDate: new Date("2023-06-30T21:34"),
+    nct: false,
   },
   {
     id: "2",
@@ -63,6 +65,7 @@ const ongoingProjects: OngoingProjects[] = [
     },
     saleStartDate: new Date("2023-06-01T21:34"),
     saleEndDate: new Date("2023-06-30T21:34"),
+    nct: true,
   },
   {
     id: "3",
@@ -79,6 +82,7 @@ const ongoingProjects: OngoingProjects[] = [
     },
     saleStartDate: new Date("2023-06-01T21:34"),
     saleEndDate: new Date("2023-06-30T21:34"),
+    nct: false,
   },
 ]
 const notifications = [
@@ -100,7 +104,12 @@ const ProjectsPage = () => {
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:grid-cols-2 md:py-10 xl:grid-cols-3">
       {ongoingProjects.map((project, index) => (
-        <Card className={cn("w-[380px]")} key={project.id}>
+        <Card
+          className={cn(
+            `w-[380px] ${project.nct && "bg-[#ecec7b] dark:bg-[#0A1F04]"}`
+          )}
+          key={project.id}
+        >
           <CardHeader>
             <div className="flex items-center space-x-2">
               <Image
