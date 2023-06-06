@@ -61,6 +61,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
+import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
 import TransactionInterface from "@/components/transactions/example"
 
@@ -127,6 +128,31 @@ const ProjectDetailsPage = () => {
     fire()
     console.log(data)
   }
+  const { toast } = useToast()
+  const shortenTxAddress = (address: string) => {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`
+  }
+
+  const showToast = () => {
+    toast({
+      title: "Transaction Successful",
+      description: shortenTxAddress(
+        "0x5bda49baf86f7c152063a2dc7945a1f0e7ff51565fd4fac7b9938c98724c214e"
+      ),
+      variant: "success",
+      action: (
+        <ToastAction altText="Explorer">
+          <Link
+            target="_blank"
+            href={`https://alfajores.celoscan.io/tx/0x5bda49baf86f7c152063a2dc7945a1f0e7ff51565fd4fac7b9938c98724c214e`}
+          >
+            Explore
+          </Link>
+        </ToastAction>
+      ),
+    })
+  }
+
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <ReactCanvasConfetti
@@ -239,7 +265,11 @@ const ProjectDetailsPage = () => {
                   </Form>
                 </DialogContent>
               </Dialog>
-              <Button className="w-full border-[#23e7c3]" variant={"outline"}>
+              <Button
+                className="w-full border-[#23e7c3]"
+                variant={"outline"}
+                onClick={showToast}
+              >
                 Claim
               </Button>
             </div>

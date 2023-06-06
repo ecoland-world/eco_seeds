@@ -1,6 +1,15 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
-import { Clock, DollarSign, Info, Leaf, Users } from "lucide-react"
+import {
+  CheckCircle2,
+  Clock,
+  DollarSign,
+  Info,
+  Leaf,
+  Users,
+} from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -61,7 +70,7 @@ const ongoingProjects: OngoingProjects[] = [
     raisedAmount: {
       currentAmount: 5000,
       targetAmount: 20000,
-      currency: "ETH",
+      currency: "CELO",
     },
     saleStartDate: new Date("2023-06-01T21:34"),
     saleEndDate: new Date("2023-06-30T21:34"),
@@ -119,7 +128,13 @@ const ProjectsPage = () => {
                 height={50}
               />
               <div>
-                <CardTitle>{project.name}</CardTitle>
+                <CardTitle className="flex items-center space-x-2">
+                  <div>{project.name}</div>{" "}
+                  <CheckCircle2 className="text-green-400" />
+                  {project.nct && (
+                    <Image src="/nct.png" alt="" width={25} height={25} />
+                  )}
+                </CardTitle>
                 <CardDescription>{project.description}</CardDescription>
               </div>
             </div>
