@@ -284,7 +284,7 @@ const ProjectDetailsPage = ( { props }: any ) => {
 
             <div className="flex w-1/2 space-x-2">
               <Dialog>
-                <DialogTrigger asChild>
+                
                   <Button className="w-full bg-[#23e7c3]">
                   {isConnected && <InvestComponent
                     amount={"0.001"}
@@ -292,7 +292,6 @@ const ProjectDetailsPage = ( { props }: any ) => {
 
                   />}
                   </Button>
-                </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>
                     <DialogTitle>Invest in Project</DialogTitle>
