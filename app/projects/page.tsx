@@ -16,8 +16,6 @@ import {
 } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 
-import { NextApiRequest, NextApiResponse } from "next"
-
 type OngoingProjects = {
   id: string
   name: string

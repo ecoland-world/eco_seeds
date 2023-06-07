@@ -51,7 +51,6 @@ export default async function handler(
       const result = await collection.find({}).toArray()
       res.status(200).json({ success: true, data: result })
     } catch (err) {
-      console.log(1)
       res.status(400).json({ success: false })
     } finally {
       await client.close()
