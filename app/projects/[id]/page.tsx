@@ -2,6 +2,8 @@
 "use client"
 
 import React, { useCallback, useEffect, useRef, useState } from "react"
+import { ethers } from "ethers"
+import { usePathname  } from 'next/navigation';
 import Image from "next/image"
 import Link from "next/link"
 import icon from "@/public/1.png"
@@ -61,17 +63,127 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
+
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
 import TransactionInterface from "@/components/transactions/example"
+import InvestComponent from "@/components/transactions/invest"
+require('dotenv').config()
+
 
 const FormSchema = z.object({
   amount: z.coerce.number({ required_error: "Enter an amount" }),
   chain: z.string({ required_error: "Select a chain" }),
 })
 
-const ProjectDetailsPage = () => {
+function convertTimestamp(timestamp: any) {
+  var d = new Date(timestamp * 1000), // Convert the passed timestamp to milliseconds
+      yyyy = d.getFullYear(),
+      mm = ('0' + (d.getMonth() + 1)).slice(-2),  // Months are zero based. Add leading 0.
+      dd = ('0' + d.getDate()).slice(-2),         // Add leading 0.
+      hh = d.getHours(),
+      h = hh,
+      min = ('0' + d.getMinutes()).slice(-2),     // Add leading 0.
+      ampm = 'AM',
+      time;
+
+  if (hh > 12) {
+      h = hh - 12;
+      ampm = 'PM';
+  } else if (hh === 12) {
+      h = 12;
+      ampm = 'PM';
+  } else if (hh == 0) {
+      h = 12;
+  }
+
+  // ie: 2014-03-24, 3:00 PM
+  time = yyyy + '-' + mm + '-' + dd + ', ' + h + ':' + min + ' ' + ampm;
+  return time;
+}
+
+/* 
+get it from the Sales mapping in the contract
+struct Sale {
+        address owner;
+        bool acceptsNct;
+        bool open;
+        uint256 pricePerUnitInNativeToken;
+        uint256 lockInEnd;
+        uint256 maxAmount;
+        uint256 sold;
+    }
+    gonna render owner, - at box
+    acceptsNct, -changes color
+    open, -changes color
+    pricePerUnitInNativeToken, - at box
+    lockInEnd, - at box
+    maxAmount, - at box (total) supply
+    sold, - at box
+
+    invest button - if open - purchases tokens
+    if closed - shows sold out
+
+    if acceptsNct - shows nct button
+    if not - shows nct button but disabled
+    
+*/
+
+
+interface ProjectProps {
+  id: string
+  name: string
+  description: string
+  logo: string
+  roundName: string
+  isPublic: boolean
+  participants: number
+  raisedAmount: {
+    currentAmount: number
+    targetAmount: number
+    currency: string
+  }
+  saleStartDate: Date
+  saleEndDate: Date
+  nct: boolean
+  contractAddress?: string
+}
+
+const ProjectDetailsPage = ( { props }: any ) => {
   const refAnimationInstance = useRef(null)
+
+  const { address, isDisconnected } = useAccount()
+  const [saleData, setSaleData]: any = useState("")
+  const [tokenContract, setTokenContract]: any = useState("")
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [lockFinish, setLockFinish]:any = useState(0)
+  
+  const router = usePathname ();
+
+  React.useEffect(() => {
+    
+    const calls = async () => {
+    const id = router?.split("projects/")[1];
+  
+    fetch("http://localhost:3000/api/sales?sale=" + id)
+    .then((res) => res.json())
+    .then((data) => {
+      setTokenContract(data.data.contract)
+     
+    const info = fetch("http://localhost:3000/api/contractdata?contract=" + data.data.contract)
+    .then((res) => res.json())
+    .then((data) => {
+
+      setSaleData(data.data)
+      const date = convertTimestamp(parseInt(BigInt(data.data[4].hex).toString()))
+      setLockFinish(date)
+      setIsLoaded(true)
+    })
+      
+    })
+  }
+  calls()
+  }, []);
 
   const getInstance = useCallback((instance: any) => {
     refAnimationInstance.current = instance
@@ -126,7 +238,6 @@ const ProjectDetailsPage = () => {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     form.reset()
     fire()
-    console.log(data)
   }
   const { toast } = useToast()
   const shortenTxAddress = (address: string) => {
@@ -152,8 +263,9 @@ const ProjectDetailsPage = () => {
       ),
     })
   }
-
+  if (isLoaded){
   return (
+  
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <ReactCanvasConfetti
         refConfetti={getInstance}
@@ -198,9 +310,14 @@ const ProjectDetailsPage = () => {
 
             <div className="flex w-1/2 space-x-2">
               <Dialog>
-                <DialogTrigger asChild>
-                  <Button className="w-full bg-[#23e7c3]">Invest</Button>
-                </DialogTrigger>
+                
+                  <Button className="w-full bg-[#23e7c3]">
+                  {isConnected && <InvestComponent
+                    amount={"0.001"}
+                    token = {tokenContract}
+
+                  />}
+                  </Button>
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>
                     <DialogTitle>Invest in Project</DialogTitle>
@@ -277,25 +394,20 @@ const ProjectDetailsPage = () => {
           <CardContent className={cn("w-1/2 p-6")}>
             <div className="grid grid-cols-2 gap-6 rounded-md bg-[#B3C6AD] p-6 dark:bg-green-900">
               <div className="space-y-1 rounded-md bg-background p-4">
-                <h1 className="font-bold text-[#23e7c3]">Total Supply</h1>
-                <p className="font-bold">1,000,000,000 Bzon</p>
+                <h1 className="font-bold text-[#23e7c3]">Token Limit</h1>
+                <p className="font-bold">{ethers.utils.formatEther(BigInt(saleData[5].hex).toString())}</p>
               </div>
               <div className="space-y-1 rounded-md bg-background p-4">
-                <h1 className="font-bold text-[#23e7c3]">FDV</h1>
-                <p className="font-bold">30M USD</p>
+                <h1 className="font-bold text-[#23e7c3]">Accepts NCT</h1>
+                <p className="font-bold">False</p>
               </div>
               <div className="space-y-1 rounded-md bg-background p-4">
-                <h1 className="font-bold text-[#23e7c3]">Initial Supply</h1>
-                <p className="font-bold">1,300,000,0 Bzon</p>
+                <h1 className="font-bold text-[#23e7c3]">Lock finish</h1>
+                <p className="font-bold">{lockFinish}</p>
               </div>
               <div className="space-y-1 rounded-md bg-background p-4">
-                <h1 className="font-bold text-[#23e7c3]">Initial Market Cap</h1>
-                <p className="font-bold">6.48M USD</p>
-              </div>
-              <div className="space-y-1 rounded-md bg-background p-4">
-                <h1 className="font-bold text-[#23e7c3]">New Sale Button</h1>
-
-                {isConnected && <TransactionInterface />}
+                <h1 className="font-bold text-[#23e7c3]">Sold</h1>
+                <p className="font-bold">{(BigInt(saleData[6].hex).toString())}</p>
               </div>
             </div>
           </CardContent>
@@ -310,7 +422,7 @@ const ProjectDetailsPage = () => {
               </div>
               <div className="flex w-full flex-row items-center justify-between">
                 <CardTitle>Token Price:</CardTitle>
-                <h3>0.25 USD</h3>
+                <h3>{ethers.utils.formatEther(BigInt(saleData[3].hex).toString())} CELO</h3>
               </div>
             </div>
           </CardHeader>
@@ -521,7 +633,9 @@ const ProjectDetailsPage = () => {
         </Card>
       </div>
     </section>
-  )
+  )}
 }
+
+
 
 export default ProjectDetailsPage

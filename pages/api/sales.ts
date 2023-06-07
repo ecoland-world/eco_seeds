@@ -42,13 +42,15 @@ export default async function handler(
 
   //run().catch(console.dir);
   // we will use params to access the data passed to the dynamic route
-  if (req.method === "POST") {
+  if (req.method === "GET") {
     // insert into db
+
+    const sale = req.query.sale
     try {
       await client.connect()
       const database = client.db("ecoseeds")
-      const collection = database.collection("applications")
-      const result = await collection.insertOne(body)
+      const collection = database.collection("projects")
+      const result = await collection.findOne({id: parseInt(sale as string)})
       res.status(200).json({ success: true, data: result })
     } catch (err) {
       res.status(400).json({ success: false })

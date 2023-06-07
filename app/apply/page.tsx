@@ -129,7 +129,6 @@ const ApplyPage = () => {
         form.reset()
         setSubmitted(true)
       }
-      console.log(res)
     } catch (err) {
       console.log(err)
     }
