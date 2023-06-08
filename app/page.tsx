@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import icon from "@/public/1.png"
+import default_image from "@/public/1.png"
 import among_nature from "@/public/among_nature.svg"
 import ar from "@/public/ar.svg"
 import world_is_mine from "@/public/world_is_mine.svg"
@@ -65,7 +67,7 @@ const ongoingProjects: OngoingProjects[] = [
     raisedAmount: {
       currentAmount: 5000,
       targetAmount: 20000,
-      currency: "ETH",
+      currency: "NCT",
     },
     saleStartDate: new Date("2023-06-01T21:34"),
     saleEndDate: new Date("2023-06-30T21:34"),
@@ -134,7 +136,7 @@ export default function IndexPage() {
               Trending
             </h4>
             <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
-              Most Popular IDO Projects
+              Most Popular Projects
             </h2>
             <p className="leading-7 [&:not(:first-child)]:mt-6">
               The king, seeing how much happier his subjects were, realized the
@@ -145,12 +147,7 @@ export default function IndexPage() {
             <Card className={cn("w-[380px]")} key={project.id}>
               <CardHeader>
                 <div className="flex items-center space-x-2">
-                  <Image
-                    src="https://dummyimage.com/50x50"
-                    alt=""
-                    width={50}
-                    height={50}
-                  />
+                  <Image src={default_image} alt="" width={50} height={50} />
                   <div>
                     <CardTitle>{project.name}</CardTitle>
                     <CardDescription>{project.description}</CardDescription>
