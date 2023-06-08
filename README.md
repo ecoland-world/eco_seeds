@@ -12,8 +12,7 @@ Invest in pre-seed and seed ecological initiatives through CELO and NCTs.
 
 ## Smart Contract Repo
 
-Check Ecoseeds contracts from link below
-[Ecoseeds Contracts](https://github.com/joaovwfreire/ecoseeds)
+Check Ecoseeds contracts from link [Ecoseeds Contracts](https://github.com/joaovwfreire/ecoseeds)
 
 ## Whats Next?
 
