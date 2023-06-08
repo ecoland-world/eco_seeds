@@ -39,6 +39,7 @@ const InvestComponent = (props: React.PropsWithChildren<InvestProps>) => {
     address: address, //My wallet address
     abi: ecoseedsAbi,
     functionName: "buyTokens",
+    // @ts-ignore
     overrides: {
       value: ethers.utils.parseEther(props.amount),
     },

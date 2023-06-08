@@ -164,13 +164,13 @@ const ProjectDetailsPage = ({ props }: any) => {
     const calls = async () => {
       const id = router?.split("projects/")[1]
 
-      fetch("http://localhost:3000/api/sales?sale=" + id)
+      fetch("https://eco-seeds.verce.app/api/sales?sale=" + id)
         .then((res) => res.json())
         .then((data) => {
           setTokenContract(data.data.contract)
 
           const info = fetch(
-            "http://localhost:3000/api/contractdata?contract=" +
+            "https://eco-seeds.verce.app/api/contractdata?contract=" +
               data.data.contract
           )
             .then((res) => res.json())
